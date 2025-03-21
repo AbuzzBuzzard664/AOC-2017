@@ -1,4 +1,4 @@
-package main
+package Day_01
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func main() {
+func Run() {
 	fmt.Println("Part 1: ", part_1())
 	fmt.Println("Part 2: ", part_2())
 }
@@ -37,6 +37,6 @@ func part_2() int {
 }
 
 func get_input() string {
-	input, _ := os.ReadFile("./Inputs/Day_01.txt")
+	input, _ := os.ReadFile("./Day_01/Day_01.txt")
 	return string(input)
 }

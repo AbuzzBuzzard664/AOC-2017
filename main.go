@@ -6,6 +6,13 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_01"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_02"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_03"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_04"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_05"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_06"
 )
 
 func main() {
@@ -26,24 +33,18 @@ func main() {
 	val, err := strconv.ParseInt(Ans, 10, 64)
 	check(err)
 	switch val {
-	case int64(slices.Index(packages, "Day1")) + 1:
-		Day1.Run()
-	case int64(slices.Index(packages, "Day2")) + 1:
-		Day2.Run()
-	case int64(slices.Index(packages, "Day3")) + 1:
-		Day3.Run()
-	case int64(slices.Index(packages, "Day4")) + 1:
-		Day4.Run()
-	case int64(slices.Index(packages, "Day5")) + 1:
-		Day5.Run()
-	case int64(slices.Index(packages, "Day6")) + 1:
-		Day6.Run()
-	case int64(slices.Index(packages, "Day7")) + 1:
-		Day7.Run()
-	case int64(slices.Index(packages, "Day8")) + 1:
-		Day8.Run()
-	case int64(slices.Index(packages, "Day9")) + 1:
-		Day9.Run()
+	case int64(slices.Index(packages, "Day_01")) + 1:
+		Day_01.Run()
+	case int64(slices.Index(packages, "Day_02")) + 1:
+		Day_02.Run()
+	case int64(slices.Index(packages, "Day_03")) + 1:
+		Day_03.Run()
+	case int64(slices.Index(packages, "Day_04")) + 1:
+		Day_04.Run()
+	case int64(slices.Index(packages, "Day_05")) + 1:
+		Day_05.Run()
+	case int64(slices.Index(packages, "Day_06")) + 1:
+		Day_06.Run()
 	default:
 		fmt.Println("That option isn't available")
 	}
