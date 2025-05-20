@@ -49,7 +49,7 @@ func part_2() int {
 		for i, num1 := range nums {
 			for j, num2 := range nums {
 				if i != j {
-					if num2%num1 == 0 {
+					if num2 % num1 == 0 {
 						res += num2 / num1
 						found = true
 						break

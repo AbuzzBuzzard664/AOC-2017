@@ -13,6 +13,14 @@ import (
 	"github.com/AbuzzBuzzard664/AOC-2017/Day_04"
 	"github.com/AbuzzBuzzard664/AOC-2017/Day_05"
 	"github.com/AbuzzBuzzard664/AOC-2017/Day_06"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_07"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_08"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_09"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_10"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_11"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_12"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_13"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_14"
 )
 
 func main() {
@@ -45,6 +53,22 @@ func main() {
 		Day_05.Run()
 	case int64(slices.Index(packages, "Day_06")) + 1:
 		Day_06.Run()
+	case int64(slices.Index(packages, "Day_07")) + 1:
+		Day_07.Run()
+	case int64(slices.Index(packages, "Day_08")) + 1:
+		Day_08.Run()
+	case int64(slices.Index(packages, "Day_09")) + 1:
+		Day_09.Run()
+	case int64(slices.Index(packages, "Day_10")) + 1:
+		Day_10.Run()
+	case int64(slices.Index(packages, "Day_11")) + 1:
+		Day_11.Run()
+	case int64(slices.Index(packages, "Day_12")) + 1:
+		Day_12.Run()
+	case int64(slices.Index(packages, "Day_13")) + 1:
+		Day_13.Run()
+	case int64(slices.Index(packages, "Day_14")) + 1:
+		Day_14.Run()
 	default:
 		fmt.Println("That option isn't available")
 	}

@@ -14,34 +14,44 @@ func Run() {
 }
 
 func part_1() int {
-	banks := get_input()
+	bank := get_input()
+	return len(debug(bank)) - 1
+}
+
+func debug(bank []int) [][]int {
 	seen := [][]int{}
 	for {
-		seen = append(seen, slices.Clone(banks))
+		seen = append(seen, slices.Clone(bank))
 		max := 0
-		for i := 1; i < len(banks); i++ {
-			if banks[i] > banks[max] {
+		for i := 1; i < len(bank); i++ {
+			if bank[i] > bank[max] {
 				max = i
 			}
 		}
-		redist := banks[max]
-		banks[max] = 0
-		for i := (max + 1) % (len(banks) - 1); redist > 0; i = (i + 1) % (len(banks) - 1) {
-			banks[i]++
+		redist := bank[max]
+		bank[max] = 0
+		for i := (max + 1) % len(bank); redist > 0; i = (i + 1) % len(bank) {
+			bank[i]++
 			redist--
 		}
-		banks[max] = redist % (len(banks) - 1)
-		fmt.Println(banks)
 		for _, val := range seen {
-			if slices.Equal(val, banks) {
-				return len(seen) - 1
+			if slices.Equal(val, bank) {
+				seen = append(seen, slices.Clone(bank))
+				return seen
 			}
 		}
 	}
 }
 
 func part_2() int {
-	return 0
+	bank := get_input()
+	seen := debug(bank)
+	for i, s := range seen {
+		if slices.Equal(s, seen[len(seen)-1]) {
+			return len(seen) - i - 1
+		}
+	}
+	return -1
 }
 
 func get_input() []int {
