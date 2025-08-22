@@ -9,6 +9,7 @@ import (
 func Run() {
 	input := get_input()
 	fmt.Println("Part 1:", part_1(input))
+	fmt.Println("Part 2:", part_2(input))
 }
 
 func part_1(input string) int {
@@ -49,9 +50,8 @@ func knotHash(input string) string {
 	}
 
 	hex := ""
-	hexValues := "0123456789ABCDE"
 	for _, v := range dense {
-		hex += string(hexValues[v])
+		hex += fmt.Sprintf("%02x", v)
 	}
 	return hex
 }
@@ -80,8 +80,52 @@ func countOnesInHex(hex string) int {
 	return count
 }
 
-func part_2() {
+func part_2(input string) int {
+	grid := make([][]int, 128)
+	for i := 0; i < 128; i++ {
+		rowInput := input + "-" + strconv.Itoa(i)
+		hash := knotHash(rowInput)
+		grid[i] = hexToBinaryRow(hash)
+	}
 
+	visited := make([][]bool, 128)
+	for i := range visited {
+		visited[i] = make([]bool, 128)
+	}
+
+	regions := 0
+	for i := 0; i < 128; i++ {
+		for j := 0; j < 128; j++ {
+			if grid[i][j] == 1 && !visited[i][j] {
+				regions++
+				floodFill(grid, visited, i, j)
+			}
+		}
+	}
+
+	return regions
+}
+
+func hexToBinaryRow(hex string) []int {
+	row := []int{}
+	for _, c := range hex {
+		n, _ := strconv.ParseUint(string(c), 16, 4)
+		for i := 3; i >= 0; i-- {
+			row = append(row, int((n>>i)&1))
+		}
+	}
+	return row
+}
+
+func floodFill(grid [][]int, visited [][]bool, x, y int) {
+	if x < 0 || x >= 128 || y < 0 || y >= 128 || visited[x][y] || grid[x][y] == 0 {
+		return
+	}
+	visited[x][y] = true
+	floodFill(grid, visited, x+1, y)
+	floodFill(grid, visited, x-1, y)
+	floodFill(grid, visited, x, y+1)
+	floodFill(grid, visited, x, y-1)
 }
 
 func get_input() string {
