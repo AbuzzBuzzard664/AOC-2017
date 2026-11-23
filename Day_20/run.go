@@ -81,10 +81,10 @@ func get_input() []Particle {
 }
 
 func parseVector(part string) Vector {
-	cleaned := strings.TrimLeft(part, "pva=<")
-	cleaned = strings.TrimRight(cleaned, ">")
+	start := strings.Index(part, "<")
+	end := strings.Index(part, ">")
+	coords := strings.Split(part[start+1:end], ",")
 	var temp Vector
-	coords := strings.Split(cleaned, ",")
 
 	temp.x, _ = strconv.Atoi(strings.TrimSpace(coords[0]))
 	temp.y, _ = strconv.Atoi(strings.TrimSpace(coords[1]))
