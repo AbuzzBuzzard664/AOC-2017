@@ -2,8 +2,8 @@ package Day_20
 
 import (
 	"fmt"
+	"math"
 	"os"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -18,75 +18,77 @@ type Particle struct {
 
 func Run() {
 	particles := get_input()
-	fmt.Println("Part 1: ", part_1(particles))
+	fmt.Println("Part 1:", part_1(particles))
 }
 
 func part_1(particles []Particle) int {
-	closests := []int{}
-	for _, _ = range particles {
-		closests = append(closests, 0)
-	}
-	for i := 1; i <= 10000; i++ {
-		best := get_Manhatten_Distance(particles[0])
-		closest := 0
-		for j, particle := range particles {
-			if new := get_Manhatten_Distance(particle); best > new {
-				best = new
-				closest = j
-			}
+	lowestAcc := math.MaxInt
+	lowestVel := math.MaxInt
+	lowestPos := math.MaxInt
+	closestIndex := -1
+
+	for i, particle := range particles {
+		acc := manhattanDistance(particle.a)
+		vel := manhattanDistance(particle.u)
+		pos := manhattanDistance(particle.p)
+
+		if acc < lowestAcc {
+			lowestAcc = acc
+			lowestVel = vel
+			lowestPos = pos
+			closestIndex = i
+		} else if acc == lowestAcc && vel < lowestVel {
+			lowestVel = vel
+			lowestPos = pos
+			closestIndex = i
+		} else if acc == lowestAcc && vel == lowestVel && pos < lowestPos {
+			lowestPos = pos
+			closestIndex = i
 		}
-		closests[closest]++
 	}
-	res := 0
-	best := 0
-	for i, num := range closests {
-		if best < num {
-			best = num
-			res = i
-		}
-	}
-	return res
+
+	return closestIndex
 }
 
-func part_2() {
-
+func manhattanDistance(v Vector) int {
+	return abs(v.x) + abs(v.y) + abs(v.z)
 }
 
-func get_Manhatten_Distance(p Particle) int {
-	return abs(p.p.x) + abs(p.p.y) + abs(p.p.z)
-}
-
-func abs(x int) int {
-	if x < 0 {
-		return -x
+func abs(n int) int {
+	if n < 0 {
+		return -n
 	}
-	return x
+	return n
 }
 
 func get_input() []Particle {
 	input, _ := os.ReadFile("./Day_20.txt")
-	lines := strings.Split(strings.TrimRight(string(input), "\n"), "\n")
-	particles := []Particle{}
+	lines := strings.Split(strings.TrimSpace(string(input)), "\n")
+
+	var particles []Particle
 	for _, line := range lines {
-		splits := strings.Split(line, ", ")
-		var temp Particle
-		temp.p = parseString(splits[0])
-		temp.u = parseString(splits[1])
-		temp.a = parseString(splits[2])
-		particles = append(particles, temp)
+		parts := strings.Split(line, ", ")
+
+		p := Particle{
+			p: parseVector(parts[0]),
+			u: parseVector(parts[1]),
+			a: parseVector(parts[2]),
+		}
+		particles = append(particles, p)
 	}
+
 	return particles
 }
 
-func parseString(split string) Vector {
-	r, _ := regexp.Compile(`-?\d+(,|>)`)
+func parseVector(part string) Vector {
+	cleaned := strings.TrimLeft(part, "pva=<")
+	cleaned = strings.TrimRight(cleaned, ">")
 	var temp Vector
-	numbers := r.FindAllString(split, -1)
-	for i := range numbers {
-		numbers[i] = strings.Trim(numbers[i], ",>")
-	}
-	temp.x, _ = strconv.Atoi(string(numbers[0]))
-	temp.y, _ = strconv.Atoi(string(numbers[1]))
-	temp.z, _ = strconv.Atoi(string(numbers[2]))
+	coords := strings.Split(cleaned, ",")
+
+	temp.x, _ = strconv.Atoi(strings.TrimSpace(coords[0]))
+	temp.y, _ = strconv.Atoi(strings.TrimSpace(coords[1]))
+	temp.z, _ = strconv.Atoi(strings.TrimSpace(coords[2]))
+
 	return temp
 }
