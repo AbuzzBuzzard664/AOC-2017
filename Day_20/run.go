@@ -55,7 +55,7 @@ func part_2(particle []Particle) int {
 	sim := make([]Particle, len(particle))
 	copy(sim, particle)
 
-	for tick := 0; tick < 1000; tick++ {
+	for range 1000 {
 		positions := make(map[Vector]int, len(sim))
 
 		for i := range sim {
