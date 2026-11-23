@@ -19,6 +19,7 @@ type Particle struct {
 func Run() {
 	particles := get_input()
 	fmt.Println("Part 1:", part_1(particles))
+	fmt.Println("Part 2:", part_2(particles))
 }
 
 func part_1(particles []Particle) int {
@@ -48,6 +49,37 @@ func part_1(particles []Particle) int {
 	}
 
 	return closestIndex
+}
+
+func part_2(particle []Particle) int {
+	sim := make([]Particle, len(particle))
+	copy(sim, particle)
+
+	for tick := 0; tick < 1000; tick++ {
+		positions := make(map[Vector]int, len(sim))
+
+		for i := range sim {
+			sim[i].u.x += sim[i].a.x
+			sim[i].u.y += sim[i].a.y
+			sim[i].u.z += sim[i].a.z
+
+			sim[i].p.x += sim[i].u.x
+			sim[i].p.y += sim[i].u.y
+			sim[i].p.z += sim[i].u.z
+
+			positions[sim[i].p]++
+		}
+
+		survivors := sim[:0]
+		for _, p := range sim {
+			if positions[p.p] == 1 {
+				survivors = append(survivors, p)
+			}
+		}
+		sim = survivors
+
+	}
+	return len(sim)
 }
 
 func manhattanDistance(v Vector) int {
