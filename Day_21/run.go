@@ -27,7 +27,7 @@ func solve(rules map[string]string, iter int) int {
 		"###",
 	}
 
-	for range 5 {
+	for range iter {
 		n := len(grid)
 		step := 3
 		if n%2 == 0 {
