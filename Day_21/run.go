@@ -9,9 +9,18 @@ import (
 func Run() {
 	rules := get_input()
 	fmt.Println("Part 1:", part_1(rules))
+	fmt.Println("Part 2:", part_2(rules))
 }
 
 func part_1(rules map[string]string) int {
+	return solve(rules, 5)
+}
+
+func part_2(rules map[string]string) int {
+	return solve(rules, 18)
+}
+
+func solve(rules map[string]string, iter int) int {
 	grid := []string{
 		".#.",
 		"..#",
@@ -32,7 +41,7 @@ func part_1(rules map[string]string) int {
 		for br := range blocks {
 			for bc := range blocks {
 				var sub []string
-				for r := 0; r < step; r++ {
+				for r := range step {
 					row := grid[br*step+r]
 					sub = append(sub, row[bc*step:(bc+1)*step])
 				}
@@ -50,10 +59,6 @@ func part_1(rules map[string]string) int {
 	}
 
 	return count_hash(strings.Join(grid, "/"))
-}
-
-func part_2(rules map[string]string) int {
-	return 0
 }
 
 func get_flips_rotations(grid string) []string {
