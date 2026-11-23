@@ -62,7 +62,7 @@ func abs(n int) int {
 }
 
 func get_input() []Particle {
-	input, _ := os.ReadFile("./Day_20.txt")
+	input, _ := os.ReadFile("./Day_20/Day_20.txt")
 	lines := strings.Split(strings.TrimSpace(string(input)), "\n")
 
 	var particles []Particle
