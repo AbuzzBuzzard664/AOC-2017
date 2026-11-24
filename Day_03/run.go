@@ -19,18 +19,16 @@ func Run() {
 func part_1() int {
 	n := get_input()
 	i := 1
-	// Find the layer of the spiral where n is located
+
 	for i*i < n {
 		i += 2
 	}
 
-	// Calculate the pivot points for the current layer
 	pivots := []int{}
-	for k := 0; k < 4; k++ {
+	for k := range 4 {
 		pivots = append(pivots, i*i-k*(i-1))
 	}
 
-	// Find the Manhattan distance
 	for _, p := range pivots {
 		dist := int(math.Abs(float64(p - n)))
 		if dist <= (i-1)/2 {
@@ -38,7 +36,7 @@ func part_1() int {
 		}
 	}
 
-	return -1 // Should not reach here
+	return -1
 }
 
 func part_2() int {

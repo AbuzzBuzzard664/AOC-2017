@@ -80,24 +80,22 @@ func get_flips_rotations(grid string) []string {
 }
 
 func rotate90(g [][]byte) [][]byte {
-	n := len(g)
-	res := make([][]byte, n)
-	for i := range n {
-		res[i] = make([]byte, n)
-		for j := 0; j < n; j++ {
-			res[i][j] = g[n-1-j][i]
+	res := make([][]byte, len(g))
+	for i := range len(g) {
+		res[i] = make([]byte, len(g))
+		for j := range len(g) {
+			res[i][j] = g[len(g)-1-j][i]
 		}
 	}
 	return res
 }
 
 func flipHorizontal(g [][]byte) [][]byte {
-	n := len(g)
-	res := make([][]byte, n)
-	for i := range n {
-		res[i] = make([]byte, n)
-		for j := 0; j < n; j++ {
-			res[i][j] = g[i][n-1-j]
+	res := make([][]byte, len(g))
+	for i := range len(g) {
+		res[i] = make([]byte, len(g))
+		for j := range len(g) {
+			res[i][j] = g[i][len(g)-1-j]
 		}
 	}
 	return res

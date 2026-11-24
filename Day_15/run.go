@@ -16,7 +16,7 @@ func Run() {
 
 func part_1(a, b int64) int {
 	count := 0
-	for i := 0; i < 40000000; i++ {
+	for range 40000000 {
 		a = (a * 16807) % 2147483647
 		b = (b * 48271) % 2147483647
 
@@ -29,7 +29,7 @@ func part_1(a, b int64) int {
 
 func part_2(a, b int64) int {
 	count := 0
-	for i := 0; i < 5000000; i++ {
+	for range 5000000 {
 		a = genA(a)
 		b = genB(b)
 		if (a & 65535) == (b & 65535) {

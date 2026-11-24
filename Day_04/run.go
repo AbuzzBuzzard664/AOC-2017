@@ -59,7 +59,7 @@ func is_Valid2(passcode []string) bool {
 
 func sort(s string) string {
 	runes := []rune(s)
-	for i := 0; i < len(runes); i++ {
+	for i := range len(runes) {
 		for j := i; j < len(runes); j++ {
 			if runes[i] > runes[j] {
 				runes[i], runes[j] = runes[j], runes[i]

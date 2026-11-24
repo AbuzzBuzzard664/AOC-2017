@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func Run() {
@@ -14,7 +15,7 @@ func Run() {
 
 func part_1(input string) int {
 	total := 0
-	for i := 0; i < 128; i++ {
+	for i := range 128 {
 		rowInput := input + "-" + strconv.Itoa(i)
 		hash := knotHash(rowInput)
 		total += countOnesInHex(hash)
@@ -30,18 +31,18 @@ func knotHash(input string) string {
 	lengths = append(lengths, 17, 31, 73, 47, 23)
 
 	circle := []int{}
-	for i := 0; i < 256; i++ {
+	for i := range 256 {
 		circle = append(circle, i)
 	}
 	pos, skip := 0, 0
-	for round := 0; round < 64; round++ {
+	for range 64 {
 		for _, l := range lengths {
 			circle, pos, skip = hash(circle, pos, skip, l)
 		}
 	}
 
 	dense := []int{}
-	for i := 0; i < 16; i++ {
+	for i := range 16 {
 		xor := circle[i*16]
 		for j := 1; j < 16; j++ {
 			xor ^= circle[i*16+j]
@@ -49,15 +50,15 @@ func knotHash(input string) string {
 		dense = append(dense, xor)
 	}
 
-	hex := ""
+	var hex strings.Builder
 	for _, v := range dense {
-		hex += fmt.Sprintf("%02x", v)
+		fmt.Fprintf(&hex, "%02x", v)
 	}
-	return hex
+	return hex.String()
 }
 
 func hash(circular []int, index, skip, length int) ([]int, int, int) {
-	for i := 0; i < length/2; i++ {
+	for i := range length / 2 {
 		start := (index + i) % len(circular)
 		end := (index + length - 1 - i) % len(circular)
 		circular[start], circular[end] = circular[end], circular[start]
@@ -71,7 +72,7 @@ func countOnesInHex(hex string) int {
 	count := 0
 	for _, c := range hex {
 		n, _ := strconv.ParseUint(string(c), 16, 4)
-		for i := 0; i < 4; i++ {
+		for i := range 4 {
 			if (n>>i)&1 == 1 {
 				count++
 			}
@@ -82,7 +83,7 @@ func countOnesInHex(hex string) int {
 
 func part_2(input string) int {
 	grid := make([][]int, 128)
-	for i := 0; i < 128; i++ {
+	for i := range 128 {
 		rowInput := input + "-" + strconv.Itoa(i)
 		hash := knotHash(rowInput)
 		grid[i] = hexToBinaryRow(hash)
@@ -94,8 +95,8 @@ func part_2(input string) int {
 	}
 
 	regions := 0
-	for i := 0; i < 128; i++ {
-		for j := 0; j < 128; j++ {
+	for i := range 128 {
+		for j := range 128 {
 			if grid[i][j] == 1 && !visited[i][j] {
 				regions++
 				floodFill(grid, visited, i, j)

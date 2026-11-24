@@ -14,11 +14,12 @@ func Run() {
 func part_1(groups string) int {
 	res := 0
 	for pos := 0; pos < len(groups); pos++ {
-		if groups[pos] == '!' {
+		switch groups[pos] {
+		case '!':
 			pos++
-		} else if groups[pos] == '<' {
+		case '<':
 			pos = skip_Garbage(pos, groups)
-		} else if groups[pos] == '{' {
+		case '{':
 			res, pos = get_group_score(pos+1, 1, groups)
 		}
 	}
@@ -28,15 +29,16 @@ func part_1(groups string) int {
 func get_group_score(pos, layer int, groups string) (int, int) {
 	var num int
 	for ; pos < len(groups); pos++ {
-		if groups[pos] == '!' {
+		switch groups[pos] {
+		case '!':
 			pos++
-		} else if groups[pos] == '<' {
+		case '<':
 			pos = skip_Garbage(pos, groups)
-		} else if groups[pos] == '{' {
+		case '{':
 			var temp int
 			temp, pos = get_group_score(pos+1, layer+1, groups)
 			num += temp
-		} else if groups[pos] == '}' {
+		case '}':
 			return num + layer, pos
 		}
 	}
@@ -45,9 +47,10 @@ func get_group_score(pos, layer int, groups string) (int, int) {
 
 func skip_Garbage(pos int, groups string) int {
 	for ; pos < len(groups); pos++ {
-		if groups[pos] == '!' {
+		switch groups[pos] {
+		case '!':
 			pos++
-		} else if groups[pos] == '>' {
+		case '>':
 			return pos
 		}
 	}
@@ -57,9 +60,10 @@ func skip_Garbage(pos int, groups string) int {
 func part_2(groups string) int {
 	res := 0
 	for pos := 0; pos < len(groups); pos++ {
-		if groups[pos] == '!' {
+		switch groups[pos] {
+		case '!':
 			pos++
-		} else if groups[pos] == '<' {
+		case '<':
 			var temp int
 			temp, pos = count_Garbage(pos+1, groups)
 			res += temp
@@ -71,11 +75,12 @@ func part_2(groups string) int {
 func count_Garbage(pos int, groups string) (int, int) {
 	res := 0
 	for ; pos < len(groups); pos++ {
-		if groups[pos] == '!' {
+		switch groups[pos] {
+		case '!':
 			pos++
-		} else if groups[pos] == '>' {
+		case '>':
 			return res, pos + 1
-		} else {
+		default:
 			res++
 		}
 	}
