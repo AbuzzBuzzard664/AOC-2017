@@ -60,7 +60,7 @@ func get_input() TuringSpec {
 	}
 
 	var currentState string
-	var currentVal int // 0 or 1
+	var currentVal int
 
 	ensureState := func(name string) *StateRules {
 		if _, ok := spec.States[name]; !ok {
