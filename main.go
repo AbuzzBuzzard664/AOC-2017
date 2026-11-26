@@ -30,6 +30,8 @@ import (
 	"github.com/AbuzzBuzzard664/AOC-2017/Day_21"
 	"github.com/AbuzzBuzzard664/AOC-2017/Day_22"
 	"github.com/AbuzzBuzzard664/AOC-2017/Day_23"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_24"
+	"github.com/AbuzzBuzzard664/AOC-2017/Day_25"
 )
 
 func main() {
@@ -96,6 +98,10 @@ func main() {
 		Day_22.Run()
 	case int64(slices.Index(packages, "Day_23")) + 1:
 		Day_23.Run()
+	case int64(slices.Index(packages, "Day_24")) + 1:
+		Day_24.Run()
+	case int64(slices.Index(packages, "Day_25")) + 1:
+		Day_25.Run()
 	default:
 		fmt.Println("That option isn't available")
 	}
